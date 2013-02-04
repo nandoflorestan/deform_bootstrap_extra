@@ -1,0 +1,2 @@
+# http://docs.python.org/2/distutils/sourcedist.html#the-manifest-in-template
+recursive-include deform_bootstrap_extra *.py *.css *.html *.js *.md *.pt *.genshi *.txt *.pot *.po *.mo
