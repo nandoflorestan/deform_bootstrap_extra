@@ -1,0 +1,20 @@
+#: deform_bootstrap_extra/pyramid.py:53
+msgid "Submit"
+msgstr ""
+
+#: deform_bootstrap_extra/schema.py:31
+msgid "Cannot be in the past. Current time is ${min}"
+msgstr ""
+
+#: deform_bootstrap_extra/schema.py:62
+msgid "${val} is not a string"
+msgstr ""
+
+#: deform_bootstrap_extra/templates/form.pt:18
+msgid "There was a problem with your submission"
+msgstr ""
+
+#: deform_bootstrap_extra/templates/form.pt:22
+msgid "Errors have been highlighted below"
+msgstr ""
+
