@@ -1,13 +1,14 @@
 # Portuguese (Brazil) translations for deform_bootstrap_extra.
 # Copyright (C) 2013 Nando Florestan
-# This file is distributed under the same license as the project deform_bootstrap_extra.
+# This file is distributed under the same license as the project
+# deform_bootstrap_extra.
 # Nando Florestan <nandoflorestan@gmail.com>, 2013.
 #
 msgid ""
 msgstr ""
-"deform_bootstrap_extra-Id-Version: deform_bootstrap_extra VERSION\n"
+"Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: nandoflorestan@gmail.com\n"
-"POT-Creation-Date: 2013-02-14 17:12-0200\n"
+"POT-Creation-Date: 2013-02-17 11:31-0300\n"
 "PO-Revision-Date: 2013-02-14 17:12-0200\n"
 "Last-Translator: Nando Florestan <nandoflorestan@gmail.com>\n"
 "Language-Team: pt_BR <LL@li.org>\n"
@@ -17,9 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: deform_bootstrap_extra/pyramid.py:53
+#: deform_bootstrap_extra/pyramid/__init__.py:53
+#: deform_bootstrap_extra/pyramid/views.py:27
 msgid "Submit"
 msgstr "Enviar"
+
+#: deform_bootstrap_extra/pyramid/views.py:86
+msgid ""
+"You do not pass our CSRF protection. Maybe your session expired? In any "
+"case, you must reload that page (and probably fill out the form again). "
+"Sorry..."
+msgstr "Você não passa na nossa proteção contra CSRF. Talvez sua sessão tenha expirado? De qualquer forma, você precisa recarregar a página (e provavelmente preencher o formulário novamente). Sinto..."
 
 #: deform_bootstrap_extra/schema.py:31
 msgid "Cannot be in the past. Current time is ${min}"
@@ -36,4 +45,3 @@ msgstr "As informações não foram aceitas."
 #: deform_bootstrap_extra/templates/form.pt:22
 msgid "Errors have been highlighted below"
 msgstr "Os erros estão destacados abaixo."
-

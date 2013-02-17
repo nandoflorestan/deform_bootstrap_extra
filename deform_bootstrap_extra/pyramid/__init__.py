@@ -35,7 +35,7 @@ def setup_for_pyramid(config, translator=translator, template_dirs=(
     global already_setup
     if already_setup:
         return
-    from . import monkeypatch_colander
+    from .. import monkeypatch_colander
     monkeypatch_colander()
 
     config.add_translation_dirs('colander:locale', 'deform:locale',)

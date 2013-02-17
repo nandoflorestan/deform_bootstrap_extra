@@ -1,5 +1,13 @@
-#: deform_bootstrap_extra/pyramid.py:53
+#: deform_bootstrap_extra/pyramid/__init__.py:53
+#: deform_bootstrap_extra/pyramid/views.py:27
 msgid "Submit"
+msgstr ""
+
+#: deform_bootstrap_extra/pyramid/views.py:86
+msgid ""
+"You do not pass our CSRF protection. Maybe your session expired? In any "
+"case, you must reload that page (and probably fill out the form again). "
+"Sorry..."
 msgstr ""
 
 #: deform_bootstrap_extra/schema.py:31
