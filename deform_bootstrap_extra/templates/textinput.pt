@@ -7,8 +7,9 @@
                   style style|field.widget.style|None;
 "
       tal:omit-tag="">
-    <input type="text" name="${name}" value="${cstruct}"
-           tal:attributes="size size;
+    <input name="${name}" value="${cstruct}"
+           tal:attributes=" type getattr(field.widget, 'type', 'text');
+                            size size;
                            class css_class;
                        maxlength getattr(field.widget, 'maxlength', None);
                      placeholder getattr(field.widget, 'placeholder', None);

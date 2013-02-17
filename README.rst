@@ -25,7 +25,9 @@ Here are the changes we've made:
 * textarea.pt: Supports *maxlength* and *placeholder* and
   automatically sets *required*.
 * textinput.pt: Supports *maxlength* and *placeholder* and
-  automatically sets *required*.
+  automatically sets *required*. Also supports any HTML5 input type --
+  for instance, you can set widget.type to "email" when instantiating a
+  TextInputWidget.
 
 All this has been tested against deform_bootstrap 0.2.5.
 
