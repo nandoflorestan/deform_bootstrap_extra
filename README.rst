@@ -26,8 +26,8 @@ Here are the changes we've made:
   automatically sets *required*.
 * textinput.pt: Supports *maxlength* and *placeholder* and
   automatically sets *required*. Also supports any HTML5 input type --
-  for instance, you can set widget.type to "email" when instantiating a
-  TextInputWidget.
+  for instance, when instantiating a ``TextInputWidget``,
+  you can set ``type='email'``.
 
 All this has been tested against deform_bootstrap 0.2.5.
 
