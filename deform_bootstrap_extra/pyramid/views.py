@@ -23,6 +23,28 @@ class BaseDeformView(object):
     * a static *schema*. (This should subclass pyramid_deform's CSRFSchema.)
     * one or more view methods that use the methods in this ABC, especially
       *_deform_workflow()* or *_colander_workflow()*.
+
+    Example usage::
+
+        from pyramid_deform import CSRFSchema
+        from deform_bootstrap_extra.pyramid.views import BaseDeformView
+
+        class InvitationView(BaseDeformView):
+            formid = 'invitation_form'
+            button_text = _("Send invitations to the above users")
+            button_icon = 'icon-envelope icon-white'
+            schema = MyInvitationSchema  # a CSRFSchema subclass
+
+            @view_config(name='invite-users',
+                renderer='myapp:templates/invite-users.genshi')
+            def invite_users(self):
+                return self._deform_workflow()
+
+            def _valid(self, form, controls):
+                """The form validates, so now we send out the invitations,
+                set up a flash message and redirect to the home page.
+                """
+                (...)
     '''
     button_text = _("Submit")
     button_icon = None

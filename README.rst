@@ -37,6 +37,13 @@ Our new widgets
 * widgets.TagsWidget: Sets up a beautiful jQuery-Tags-Input which in
   turn comes from http://xoxco.com/projects/code/tagsinput/
 
+Abstract base view
+==================
+
+If you use the *Pyramid* web framework, here is a great little abstract base
+class for views that use deform: `BaseDeformView. Check it out!
+<https://github.com/nandoflorestan/deform_bootstrap_extra/blob/master/deform_bootstrap_extra/pyramid/views.py>`_
+
 Helper functions
 ================
 
