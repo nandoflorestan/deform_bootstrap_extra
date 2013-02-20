@@ -132,6 +132,12 @@ class BaseDeformView(object):
             form = form.render()
         return dict(form=form, **k)
 
+    def _preprocess_controls(self, controls):
+        '''If you'd like to do something with the POSTed data *before*
+        validation, just override this method in your subclass.
+        '''
+        return controls
+
     def _deform_workflow(self, controls=None):
         '''Call this from your view. This performs the whole deform validation
         step (using the other methods in this abstract base class)
@@ -140,16 +146,10 @@ class BaseDeformView(object):
         form = self._get_form()
         if self.request.method != 'POST':
             return self._template_dict(form=form)  # GET ends here.
-        controls = controls or self.request.POST.items()
-        # If the subclass has _preprocess_controls(), give it the data first
-        if hasattr(self, '_preprocess_controls'):
-            controls = peppercorn.parse(controls)
-            controls = self._preprocess_controls(controls) or controls
-            validate = form.validate_pstruct  # and use a different validate()
-        else:
-            validate = form.validate
+        controls = peppercorn.parse(controls or self.request.POST.items())
+        controls = self._preprocess_controls(controls)
         try:
-            appstruct = validate(controls)
+            appstruct = form.validate_pstruct(controls)
         except d.ValidationFailure as e:
             self.status = 'invalid'
             return self._invalid(e, controls)
