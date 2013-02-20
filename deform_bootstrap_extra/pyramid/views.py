@@ -10,6 +10,7 @@ from pyramid.decorator import reify
 from pyramid.httpexceptions import HTTPUnauthorized
 import colander as c
 import deform as d
+import peppercorn
 from . import button, translator, _
 
 
@@ -45,6 +46,11 @@ class BaseDeformView(object):
                 set up a flash message and redirect to the home page.
                 """
                 (...)
+
+    If you want to do something with the POSTed data *before* validation,
+    just implement this method in your subclass::
+
+        def _preprocess_controls(self, controls):
     '''
     button_text = _("Submit")
     button_icon = None
@@ -135,8 +141,15 @@ class BaseDeformView(object):
         if self.request.method != 'POST':
             return self._template_dict(form=form)  # GET ends here.
         controls = controls or self.request.POST.items()
+        # If the subclass has _preprocess_controls(), give it the data first
+        if hasattr(self, '_preprocess_controls'):
+            controls = peppercorn.parse(controls)
+            controls = self._preprocess_controls(controls) or controls
+            validate = form.validate_pstruct  # and use a different validate()
+        else:
+            validate = form.validate
         try:
-            appstruct = form.validate(controls)
+            appstruct = validate(controls)
         except d.ValidationFailure as e:
             self.status = 'invalid'
             return self._invalid(e, controls)
