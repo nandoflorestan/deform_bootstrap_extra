@@ -1,0 +1,55 @@
+/* START fix deform_bootstrap styles ====================
+   bootstrap has its own ideas about .error, but in deform forms, especially
+   those with sequences, bootstrap basically just paints everything red.
+   So let's remove bootstrap interference from colors of fields with errors: */
+.control-group.error input,
+.control-group.error select,
+.control-group.error textarea {
+  color: #555;
+  border-color: #ccc;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.control-group.error input:focus,
+.control-group.error select:focus,
+.control-group.error textarea:focus {
+  color: #555;
+  border-color: rgba(82, 168, 236, 0.8);
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+.control-group.error .control-label,
+.control-group.error .help-block,
+.control-group.error .help-inline {
+  color: #333;
+}
+
+/* Now that we have neutralized bootstrap, we use more sensible selectors: */
+
+.control-group.error > .control-label,
+.control-group.error > .controls > .help-inline {
+  color: #B94A48;
+}
+.control-group.error > .controls > input,
+.control-group.error > .controls > select,
+.control-group.error > .controls > textarea {
+  border-color: #b94a48;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.control-group.error > .controls > input:focus,
+.control-group.error > .controls > select:focus,
+.control-group.error > .controls > textarea:focus {
+  border-color: #953b39;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+}
+
+/* END fix deform_bootstrap styles ==================== */

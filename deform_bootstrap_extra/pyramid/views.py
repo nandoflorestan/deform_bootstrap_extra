@@ -143,9 +143,21 @@ class BaseDeformView(object):
         step (using the other methods in this abstract base class)
         and returns the appropriate dictionary for your template.
         '''
-        form = self._get_form()
-        if self.request.method != 'POST':
-            return self._template_dict(form=form)  # GET ends here.
+        if self.request.method == 'POST':
+            return self._post(self._get_form(), controls=controls)
+        else:
+            return self._get(self._get_form())
+
+    def _get(self, form):
+        '''You may override this method in subclasses to do something special
+        when the request method is GET.
+        '''
+        return self._template_dict(form=form)
+
+    def _post(self, form, controls=None):
+        '''You may override this method in subclasses to do something special
+        when the request method is POST.
+        '''
         controls = peppercorn.parse(controls or self.request.POST.items())
         controls = self._preprocess_controls(controls)
         try:
