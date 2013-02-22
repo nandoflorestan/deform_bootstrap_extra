@@ -32,8 +32,12 @@
 /* Now that we have neutralized bootstrap, we use more sensible selectors: */
 
 .control-group.error > .control-label,
-.control-group.error > .controls > .help-inline {
+.control-group.error > .controls > .help-inline,
+legend.error {
   color: #B94A48;
+}
+legend.error {
+  border-bottom: 1px solid #B94A48;
 }
 .control-group.error > .controls > input,
 .control-group.error > .controls > select,
@@ -53,3 +57,8 @@
 }
 
 /* END fix deform_bootstrap styles ==================== */
+
+/* Let me specify the damn *size* attribute. Please, bootstrap? */
+input, textarea, select {
+  width: auto;
+}
