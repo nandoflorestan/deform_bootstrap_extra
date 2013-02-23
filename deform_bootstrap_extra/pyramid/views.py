@@ -7,7 +7,7 @@ from __future__ import (absolute_import, division, print_function,
 from itertools import count
 from pyramid_deform import CSRFSchema
 from pyramid.decorator import reify
-from pyramid.httpexceptions import HTTPUnauthorized
+from pyramid.httpexceptions import HTTPForbidden
 import colander as c
 import deform as d
 import peppercorn
@@ -105,7 +105,7 @@ class BaseDeformView(object):
     def _check_csrf(self, exception):
         '''This is called when there is a validation error. If the schema
         being validated is an instance of CSRFSchema, check the posted
-        CSRF token, and if there is a problem, raise HTTPUnauthorized.
+        CSRF token, and if there is a problem, raise HTTPForbidden.
 
         If we didn't do this, the form would be redisplayed with an error
         message at the top, but the user would have no idea what is going on,
@@ -115,7 +115,7 @@ class BaseDeformView(object):
         if isinstance(exception.error.node, CSRFSchema) and \
             self.request.session.get_csrf_token() != \
             (exception.cstruct or self.request.POST).get('csrf_token'):
-            raise HTTPUnauthorized(translator(self.CSRF_ERROR))
+            raise HTTPForbidden(translator(self.CSRF_ERROR))
 
     def _template_dict(self, form=None, controls=None, **k):
         '''Override this method to fill in the dictionary that is returned
@@ -196,7 +196,7 @@ class BaseDeformView(object):
         except c.Invalid as e:
             try:
                 self._check_csrf(controls)
-            except HTTPUnauthorized as e:
+            except HTTPForbidden as e:
                 return dict(errors={'': e.args[0]})
             else:
                 return dict(errors=e.asdict2() if hasattr(e, 'asdict2') \
