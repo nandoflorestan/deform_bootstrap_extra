@@ -63,3 +63,9 @@ legend.error {
 input, textarea, select {
   width: auto;
 }
+
+.form-horizontal input + .help-block, .form-horizontal select + .help-block, .form-horizontal textarea + .help-block, .form-horizontal .uneditable-input + .help-block, .form-horizontal .input-prepend + .help-block, .form-horizontal .input-append + .help-block{
+  margin-top: 3px; /* keep help text close to the input above it */
+}
+
+span.error { font-weight: bold; }
