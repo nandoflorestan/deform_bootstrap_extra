@@ -20,6 +20,7 @@ Here are the changes we've made:
 * checkbox.pt: Allows you to pass a *text* argument to a Boolean schema, and
   the text appears on the right of the checkbox.
 * form.pt: Squashes a bug where buttons would be rendered disabled.
+* mapping_item: Show error messages *below* help text.
 * password.pt: Supports *maxlength* and *placeholder* and
   automatically sets *required*.
 * textarea.pt: Supports *maxlength* and *placeholder* and
@@ -29,7 +30,13 @@ Here are the changes we've made:
   for instance, when instantiating a ``TextInputWidget``,
   you can set ``type='email'``.
 
-All this has been tested against deform_bootstrap 0.2.5.
+All this has been tested against deform_bootstrap 0.2.6.
+
+CSS file
+========
+
+Take a look on static/deform_bootstrap_extra.css -- it has a few improvements
+on bootstrap's CSS so it works better with deform. The file has comments.
 
 Our new widgets
 ===============
