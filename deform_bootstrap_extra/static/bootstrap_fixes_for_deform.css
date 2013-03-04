@@ -33,6 +33,7 @@
 
 .control-group.error > .control-label,
 .control-group.error > .controls > .help-inline,
+.control-group.error > .controls > .help-block,
 legend.error {
   color: #B94A48;
 }

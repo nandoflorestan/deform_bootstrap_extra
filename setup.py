@@ -13,7 +13,7 @@ try:
 except IOError:
     CHANGES = ''
 
-requires = ['bag', 'deform_bootstrap>=0.2.5', 'pyramid_deform']
+requires = ['bag>=0.3.2', 'deform_bootstrap==0.2.6', 'pyramid_deform']
 
 setup(name='deform_bootstrap_extra',
     version='0.2.1dev',
@@ -30,6 +30,7 @@ setup(name='deform_bootstrap_extra',
         "Intended Audience :: Developers",
         'License :: OSI Approved :: BSD License',
         "Environment :: Web Environment",
+        "Framework :: Pyramid",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
