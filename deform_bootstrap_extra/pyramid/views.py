@@ -37,7 +37,7 @@ class BaseDeformView(object):
             schema = MyInvitationSchema  # a CSRFSchema subclass
 
             @view_config(name='invite-users',
-                renderer='myapp:templates/invite-users.genshi')
+                         renderer='myapp:templates/invite-users.genshi')
             def invite_users(self):
                 return self._deform_workflow()
 
@@ -84,7 +84,7 @@ class BaseDeformView(object):
         return self.schema().bind(request=self.request)
 
     def _get_form(self, schema=None, action='', formid=None, buttons=None,
-        bootstrap_form_style=None):
+                  bootstrap_form_style=None):
         '''When there is more than one Deform form per page, forms must use
         the same *counter* to generate unique input ids. So we create the
         variable ``request.deform_field_counter``.
@@ -99,8 +99,8 @@ class BaseDeformView(object):
             self.bootstrap_form_style)
 
     CSRF_ERROR = _("You do not pass our CSRF protection. "
-                "Maybe your session expired? In any case, you must reload "
-                "that page (and probably fill out the form again). Sorry...")
+        "Maybe your session expired? In any case, you must reload "
+        "that page (and probably fill out the form again). Sorry...")
 
     def _check_csrf(self, exception):
         '''This is called when there is a validation error. If the schema
@@ -114,7 +114,7 @@ class BaseDeformView(object):
         # if issubclass(self.schema, CSRFSchema) and \
         if isinstance(exception.error.node, CSRFSchema) and \
             self.request.session.get_csrf_token() != \
-            (exception.cstruct or self.request.POST).get('csrf_token'):
+                (exception.cstruct or self.request.POST).get('csrf_token'):
             raise HTTPForbidden(translator(self.CSRF_ERROR))
 
     def _template_dict(self, form=None, controls=None, **k):
@@ -167,6 +167,7 @@ class BaseDeformView(object):
             return self._invalid(e, controls)
         else:
             self.status = 'valid'
+            appstruct.pop('csrf_token', None)  # Discard the CSRF token
             return self._valid(form=form, controls=appstruct)
 
     def _invalid(self, exception, controls):
@@ -181,8 +182,8 @@ class BaseDeformView(object):
         '''This is called after form validation. You may override this method
         to change the response at the end of the view workflow.
         '''
-        # controls.pop('csrf_token', None)  # Discard the CSRF token
-        return self._template_dict(form=form, controls=controls)
+        raise NotImplementedError(
+            "You need to    def _valid(self, form, controls):")
 
     def _colander_workflow(self, controls=None):
         '''Especially in AJAX views, you may skip Deform and use just colander
@@ -199,7 +200,7 @@ class BaseDeformView(object):
             except HTTPForbidden as e:
                 return dict(errors={'': e.args[0]})
             else:
-                return dict(errors=e.asdict2() if hasattr(e, 'asdict2') \
+                return dict(errors=e.asdict2() if hasattr(e, 'asdict2')
                     else e.asdict())
         else:
             # appstruct.pop('csrf_token', None)  # Discard the CSRF token
