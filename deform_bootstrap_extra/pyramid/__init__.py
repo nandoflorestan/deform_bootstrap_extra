@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-'''Functions to set up and more easily use deform_bootstrap_extra with Pyramid.
-'''
+'Functions to set up and more easily use deform_bootstrap_extra with Pyramid.'
 
 from __future__ import (absolute_import, division, print_function,
     unicode_literals)
@@ -24,9 +23,9 @@ already_setup = False
 
 
 def setup_for_pyramid(config, translator=translator, template_dirs=(
-    'deform_bootstrap_extra:templates',
-    'deform_bootstrap:templates',
-    'deform:templates')):
+                      'deform_bootstrap_extra:templates',
+                      'deform_bootstrap:templates',
+                      'deform:templates')):
     '''Set deform up for i18n and give its template loader the correct
     directory hierarchy.
 
@@ -44,7 +43,7 @@ def setup_for_pyramid(config, translator=translator, template_dirs=(
     config.add_static_view('deform_bootstrap_extra',
         'deform_bootstrap_extra:static')
     config.include('deform_bootstrap')
-    dirs = tuple([resource_filename(*dir.split(':')) \
+    dirs = tuple([resource_filename(*dir.split(':'))
         for dir in template_dirs])
     d.Form.set_zpt_renderer(dirs, translator=translator)
     already_setup = True
