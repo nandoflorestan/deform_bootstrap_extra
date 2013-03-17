@@ -16,7 +16,7 @@ except IOError:
 requires = ['bag>=0.3.4', 'deform_bootstrap==0.2.6', 'pyramid_deform']
 
 setup(name='deform_bootstrap_extra',
-    version='0.2.2',
+    version='0.2.3dev',
     description="A complement to deform_bootstrap, which offers "
     "Twitter Bootstrap compatible widgets, templates and styles "
     "for the deform form library.",
