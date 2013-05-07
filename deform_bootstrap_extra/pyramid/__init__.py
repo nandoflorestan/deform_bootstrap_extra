@@ -4,8 +4,9 @@
 
 from __future__ import (absolute_import, division, print_function,
     unicode_literals)
-from pkg_resources import resource_filename
 import deform as d
+# from pkg_resources import resource_filename  # does not work in appengine 177
+from pyramid.asset import abspath_from_asset_spec
 from pyramid.httpexceptions import HTTPUnauthorized
 from pyramid.i18n import get_localizer
 from pyramid.threadlocal import get_current_request
@@ -43,8 +44,9 @@ def setup_for_pyramid(config, translator=translator, template_dirs=(
     config.add_static_view('deform_bootstrap_extra',
         'deform_bootstrap_extra:static')
     config.include('deform_bootstrap')
-    dirs = tuple([resource_filename(*dir.split(':'))
-        for dir in template_dirs])
+    # dirs = tuple([resource_filename(*dir.split(':'))
+    #     for dir in template_dirs])
+    dirs = tuple([abspath_from_asset_spec(dir) for dir in template_dirs])
     d.Form.set_zpt_renderer(dirs, translator=translator)
     already_setup = True
 
