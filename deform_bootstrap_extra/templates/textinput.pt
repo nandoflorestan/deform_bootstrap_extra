@@ -9,6 +9,8 @@
       tal:omit-tag="">
     <input name="${name}" value="${cstruct}"
            tal:attributes=" type getattr(field.widget, 'type', 'text');
+                             min getattr(field.widget, 'min', None);
+                             max getattr(field.widget, 'max', None);
                             size size;
                            class css_class;
                        maxlength getattr(field.widget, 'maxlength', None);
