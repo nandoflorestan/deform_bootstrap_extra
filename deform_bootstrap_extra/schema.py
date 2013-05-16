@@ -5,6 +5,7 @@
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 import colander as c
+import re
 try:
     from .pyramid import _
 except ImportError:
@@ -28,6 +29,15 @@ def from_now_on(node, kw):
     return c.Range(min=kw['now'],
         # min_err=_('${val} is in the past. Current time is ${min}'))
         min_err=_('Cannot be in the past. Current time is ${min}'))
+
+
+def regex_validator(node, value):
+    '''Validator that ensures a regular expression can be compiled.'''
+    try:
+        re.compile(value)
+    except Exception as e:
+        raise c.Invalid(node, _("Invalid regular expression: {}")
+            .format(str(e)))
 
 
 class Trilean(c.SchemaType):
