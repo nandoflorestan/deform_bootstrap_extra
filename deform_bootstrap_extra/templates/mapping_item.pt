@@ -26,22 +26,22 @@
       <span class="add-on" tal:condition="input_prepend">${input_prepend}</span
       ><span tal:replace="structure field.serialize(cstruct).strip()"
       /><span class="add-on" tal:condition="input_append">${input_append}</span>
-
-      <span class="help-block" tal:condition="field.description and not field.widget.hidden">
-        ${field.description}
-      </span>
-
-      <span class="help-block"
-            tal:condition="field.error and not field.widget.hidden and not field.typ.__class__.__name__=='Mapping'">
-        <span
-            tal:define="errstr 'error-%s' % field.oid"
-            tal:repeat="msg field.error.messages()"
-            tal:attributes="id repeat.msg.index==0 and errstr or
-                            ('%s-%s' % (errstr, repeat.msg.index))"
-            class="${field.widget.error_class}">
-          ${msg}
-        </span>
-      </span>
     </div>
+
+    <span class="help-block" tal:condition="field.description and not field.widget.hidden">
+      ${field.description}
+    </span>
+
+    <span class="help-block"
+          tal:condition="field.error and not field.widget.hidden and not field.typ.__class__.__name__=='Mapping'">
+      <span
+          tal:define="errstr 'error-%s' % field.oid"
+          tal:repeat="msg field.error.messages()"
+          tal:attributes="id repeat.msg.index==0 and errstr or
+                          ('%s-%s' % (errstr, repeat.msg.index))"
+          class="${field.widget.error_class}">
+        ${msg}
+      </span>
+    </span>
   </div>
 </div>
