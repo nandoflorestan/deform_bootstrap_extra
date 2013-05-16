@@ -148,11 +148,18 @@ class BaseDeformView(object):
         else:
             return self._get(self._get_form())
 
+    def _load_controls(self):
+        '''Override this method to load existing data from your database.
+        Return the data as a dict, or None if the object being edited is new.
+        This is only called in GET requests.
+        '''
+        return None
+
     def _get(self, form):
         '''You may override this method in subclasses to do something special
         when the request method is GET.
         '''
-        return self._template_dict(form=form)
+        return self._template_dict(form=form, controls=self._load_controls())
 
     def _post(self, form, controls=None):
         '''You may override this method in subclasses to do something special
