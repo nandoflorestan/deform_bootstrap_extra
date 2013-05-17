@@ -56,6 +56,7 @@ class BaseDeformView(object):
     button_icon = None
     formid = 'form'
     bootstrap_form_style = 'form-horizontal'
+    schema_validator = None  # validator to be applied to the form as a whole
 
     def __init__(self, context, request):
         '''Sets ``status`` to the request method. Later, ``status``
@@ -79,9 +80,12 @@ class BaseDeformView(object):
             def schema_instance(self):
                 return self.schema().bind(now=datetime.utcnow())
 
-        The default implementation binds the request for CSRF protection.
+        The default implementation binds the request for CSRF protection
+        and, if ``self.schema_validator`` is defined, uses it for the
+        form as a whole.
         '''
-        return self.schema().bind(request=self.request)
+        return self.schema(validator=self.schema_validator).bind(
+            request=self.request)
 
     def _get_form(self, schema=None, action='', formid=None, buttons=None,
                   bootstrap_form_style=None):
