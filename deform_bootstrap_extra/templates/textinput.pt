@@ -11,6 +11,7 @@
            tal:attributes=" type getattr(field.widget, 'type', 'text');
                              min getattr(field.widget, 'min', None);
                              max getattr(field.widget, 'max', None);
+                            step getattr(field.widget, 'step', None);
                             size size;
                            class css_class;
                        maxlength getattr(field.widget, 'maxlength', None);
