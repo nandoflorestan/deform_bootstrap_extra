@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-'''Provides an abstract base class for creating deform views in Pyramid.'''
+'''Abstract base classes for creating deform views in Pyramid.'''
 
 from __future__ import (absolute_import, division, print_function,
     unicode_literals)
@@ -8,6 +8,7 @@ from itertools import count
 from pyramid_deform import CSRFSchema
 from pyramid.decorator import reify
 from pyramid.httpexceptions import HTTPForbidden
+from pyramid.response import Response
 import colander as c
 import deform as d
 import peppercorn
@@ -57,6 +58,7 @@ class BaseDeformView(object):
     formid = 'form'
     bootstrap_form_style = 'form-horizontal'
     schema_validator = None  # validator to be applied to the form as a whole
+    use_ajax = False
 
     def __init__(self, context, request):
         '''Sets ``status`` to the request method. Later, ``status``
@@ -87,20 +89,29 @@ class BaseDeformView(object):
         return self.schema(validator=self.schema_validator).bind(
             request=self.request)
 
-    def _get_form(self, schema=None, action='', formid=None, buttons=None,
-                  bootstrap_form_style=None):
+    def _get_form(self, schema=None, **kw):
         '''When there is more than one Deform form per page, forms must use
         the same *counter* to generate unique input ids. So we create the
         variable ``request.deform_field_counter``.
         '''
         if not hasattr(self.request, 'deform_field_counter'):
             self.request.deform_field_counter = count()
-        return d.Form(schema or self.schema_instance, action=action,
+        return d.Form(schema or self.schema_instance, **self._form_args(**kw))
+
+    def _form_args(self, action='', bootstrap_form_style=None,
+                   buttons=None, formid=None, ajax_options=None):
+        '''Override this to change the kwargs to the Form constructor.'''
+        adict = dict(
+            action=action,
             buttons=buttons or self._get_buttons(),
             counter=self.request.deform_field_counter,
             formid=formid or self.formid,
             bootstrap_form_style=bootstrap_form_style or
-            self.bootstrap_form_style)
+            self.bootstrap_form_style,
+            use_ajax=self.use_ajax)
+        if ajax_options:
+            adict['ajax_options'] = ajax_options
+        return adict
 
     CSRF_ERROR = _("You do not pass our CSRF protection. "
         "Maybe your session expired? In any case, you must reload "
@@ -142,15 +153,17 @@ class BaseDeformView(object):
         '''
         return controls
 
-    def _deform_workflow(self, controls=None):
+    def _deform_workflow(self, controls=None, form_args=None):
         '''Call this from your view. This performs the whole deform validation
         step (using the other methods in this abstract base class)
         and returns the appropriate dictionary for your template.
         '''
+        if not form_args:
+            form_args = {}
         if self.request.method == 'POST':
-            return self._post(self._get_form(), controls=controls)
+            return self._post(self._get_form(**form_args), controls=controls)
         else:
-            return self._get(self._get_form())
+            return self._get(self._get_form(**form_args))
 
     def _load_controls(self):
         '''Override this method to load existing data from your database.
@@ -216,3 +229,38 @@ class BaseDeformView(object):
         else:
             # appstruct.pop('csrf_token', None)  # Discard the CSRF token
             return appstruct
+
+
+class ModalDeformView(BaseDeformView):
+    '''Render a deform form as a bootstrap modal dialog.
+    The form can be loaded dynamically into the dialog.
+    _valid() should return a script tag such as:
+
+        return Response(body="<script>$('#my-modal').modal('hide');</script>")
+    '''
+    use_ajax = True
+
+    def _form_args(self, **kw):
+        adict = super(ModalDeformView, self)._form_args(**kw)
+        adict['action'] = adict['action'] or self.request.path_info
+        adict['renderer'] = modal_renderer
+        adict['page_title'] = self.page_title
+        return adict
+
+    def _deform_workflow(self, **k):
+        result = super(ModalDeformView, self)._deform_workflow(**k)
+        if isinstance(result, Response):
+            return result
+        else:
+            return Response(body=result['form'])
+
+
+# modal_renderer is for rendering a form as a bootstrap modal dialog
+from pyramid.asset import abspath_from_asset_spec
+modal_search_path = [
+    abspath_from_asset_spec('deform_bootstrap_extra:templates-modal'),
+    abspath_from_asset_spec('deform_bootstrap:templates'),
+    abspath_from_asset_spec('deform:templates'),
+]
+modal_renderer = d.ZPTRendererFactory(modal_search_path)
+del abspath_from_asset_spec, modal_search_path
