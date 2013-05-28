@@ -1,10 +1,9 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 '''Tests an improvement to Colander.'''
 
 from __future__ import (absolute_import, division, print_function,
-    unicode_literals)
+                        unicode_literals)
 import unittest
 import colander as c
 # from bag.six import *
@@ -41,9 +40,9 @@ class TestColander(unittest.TestCase):
         monkeypatch_colander()
         expected_asdict = {
             'minLength': 'Length inconsistency; Word count inconsistency; '
-                'Higher than max length',
+            'Higher than max length',
             'minWords': 'Length inconsistency; Word count inconsistency; '
-                'Higher than max words',
+            'Higher than max words',
         }
         try:
             edit_schema.deserialize(dict(
