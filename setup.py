@@ -13,7 +13,7 @@ try:
 except IOError:
     CHANGES = ''
 
-requires = ['bag>=0.3.4', 'deform_bootstrap==0.2.6', 'pyramid_deform']
+requires = ['nine', 'bag>=0.3.4', 'deform_bootstrap==0.2.6', 'pyramid_deform']
 
 setup(name='deform_bootstrap_extra',
     version='0.2.3dev',

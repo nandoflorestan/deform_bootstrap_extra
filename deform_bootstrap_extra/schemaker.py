@@ -30,7 +30,7 @@ class DBUniqueCheck(object):
             f = func.lower(self.field)
             v = value.lower()
         if query.filter(f == v).scalar() is not None:
-            s = (u'A %s already exists with that %s'
+            s = ('A %s already exists with that %s'
                  % (self.model_class.__name__.lower(), node.name))
             raise colander.Invalid(node, s)
 

@@ -58,7 +58,7 @@ def button(title=_('Submit'), name=None, icon=None):
     The button may also have a bootstrap icon.
     '''
     b = d.Button(title=translator(title).capitalize(),
-        name=name or title.lower())
+                 name=name or title.lower())
     b.icon = icon
     return b
 

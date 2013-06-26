@@ -6,6 +6,7 @@ from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 import colander as c
 import re
+from nine import str
 try:
     from .pyramid import _
 except ImportError:
