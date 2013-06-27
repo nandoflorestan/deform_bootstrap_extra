@@ -30,7 +30,7 @@ Here are the changes we've made:
   for instance, when instantiating a ``TextInputWidget``,
   you can set ``type='email'``.
 
-All this has been tested against deform_bootstrap 0.2.6.
+All this has been tested against deform_bootstrap 0.2.8.
 
 CSS file
 ========

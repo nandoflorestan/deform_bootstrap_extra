@@ -13,10 +13,10 @@ try:
 except IOError:
     CHANGES = ''
 
-requires = ['nine', 'bag>=0.3.4', 'deform_bootstrap==0.2.6', 'pyramid_deform']
+requires = ['nine', 'bag>=0.3.4', 'deform_bootstrap==0.2.8', 'pyramid_deform']
 
 setup(name='deform_bootstrap_extra',
-    version='0.2.3dev',
+    version='0.2.8',
     description="A complement to deform_bootstrap, which offers "
     "Twitter Bootstrap compatible widgets, templates and styles "
     "for the deform form library.",
